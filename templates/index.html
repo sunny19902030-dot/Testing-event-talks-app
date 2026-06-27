@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigQuery Release Radar</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="glow-bg">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header animate-fade-in">
+            <div class="header-content">
+                <div class="brand">
+                    <div class="logo-container">
+                        <i data-lucide="database" class="logo-icon"></i>
+                        <span class="logo-glow"></span>
+                    </div>
+                    <div>
+                        <h1>BigQuery <span class="text-gradient">Release Radar</span></h1>
+                        <p class="subtitle">Stay ahead with the latest features, changes, and updates in Google BigQuery</p>
+                    </div>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="feed-status">
+                        <span class="status-indicator online"></span>
+                        <span class="status-text" id="status-text">Connecting...</span>
+                    </div>
+                    <button id="refresh-btn" class="btn btn-primary" title="Refresh Release Notes">
+                        <i data-lucide="refresh-cw" class="icon-refresh"></i>
+                        <span>Refresh</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Control Bar (Search & Filter) -->
+        <section class="controls animate-fade-in" style="animation-delay: 0.1s;">
+            <div class="search-wrapper">
+                <i data-lucide="search" class="search-icon"></i>
+                <input type="text" id="search-input" placeholder="Search updates (e.g. 'vector_search', 'pricing', 'json')..." autocomplete="off">
+                <button id="clear-search" class="clear-search-btn" style="display: none;">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="filters-wrapper">
+                <span class="filter-label"><i data-lucide="filter" class="inline-icon"></i> Filter:</span>
+                <div class="filter-tags" id="filter-tags-container">
+                    <button class="filter-tag active" data-type="all">All</button>
+                    <button class="filter-tag" data-type="Feature">Features</button>
+                    <button class="filter-tag" data-type="Change">Changes</button>
+                    <button class="filter-tag" data-type="Deprecation">Deprecations</button>
+                    <button class="filter-tag" data-type="Announcement">Announcements</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Feed / Timeline -->
+        <main class="feed-container animate-fade-in" style="animation-delay: 0.2s;">
+            <!-- Loader -->
+            <div id="feed-loader" class="feed-loader">
+                <div class="spinner"></div>
+                <p>Fetching BigQuery release feed...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="feed-error" class="feed-error" style="display: none;">
+                <i data-lucide="alert-triangle" class="error-icon"></i>
+                <h3>Failed to Load Release Notes</h3>
+                <p id="error-message">The feed could not be fetched. Please try again later.</p>
+                <button id="retry-btn" class="btn btn-secondary">
+                    <i data-lucide="rotate-ccw"></i>
+                    <span>Retry Connection</span>
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div id="feed-empty" class="feed-empty" style="display: none;">
+                <i data-lucide="search-code" class="empty-icon"></i>
+                <h3>No Updates Found</h3>
+                <p>No release notes match your search query or filter criteria.</p>
+                <button id="reset-filters-btn" class="btn btn-secondary">Clear Filters</button>
+            </div>
+
+            <!-- Feed Timeline list -->
+            <div id="timeline" class="timeline" style="display: none;">
+                <!-- Timeline items will be generated dynamically -->
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer animate-fade-in" style="animation-delay: 0.3s;">
+            <p>Source feed: <a href="https://docs.cloud.google.com/feeds/bigquery-release-notes.xml" target="_blank" rel="noreferrer">Google Cloud Feed <i data-lucide="external-link" class="inline-icon small"></i></a></p>
+            <p class="copyright">Built using Python Flask, HTML, Javascript & Vanilla CSS</p>
+        </footer>
+    </div>
+
+    <!-- Floating Tweet Action Bar (slides up when items are selected) -->
+    <div id="selection-bar" class="selection-bar">
+        <div class="selection-bar-content">
+            <div class="selection-info">
+                <div class="selection-counter" id="selection-count">0</div>
+                <span class="selection-text">updates selected</span>
+            </div>
+            <div class="selection-actions">
+                <button id="clear-selection-btn" class="btn btn-text">
+                    <span>Clear Selection</span>
+                </button>
+                <button id="tweet-selected-btn" class="btn btn-success">
+                    <i data-lucide="twitter"></i>
+                    <span>Compose Tweet</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tweet Composer Modal -->
+    <div id="tweet-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title-group">
+                    <i data-lucide="twitter" class="tweet-logo"></i>
+                    <h2>Tweet Composer</h2>
+                </div>
+                <button id="close-modal-btn" class="modal-close-btn" title="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="tweet-card">
+                    <div class="tweet-card-header">
+                        <div class="avatar">BQ</div>
+                        <div class="user-meta">
+                            <span class="user-name">Google BigQuery News</span>
+                            <span class="user-handle">@bigquery_notes</span>
+                        </div>
+                    </div>
+                    <div class="tweet-card-body">
+                        <textarea id="tweet-textarea" rows="6" placeholder="What's happening in BigQuery?"></textarea>
+                    </div>
+                    <div class="tweet-card-footer">
+                        <div class="character-counter">
+                            <span id="char-count">0</span><span class="char-limit"> / 280</span>
+                        </div>
+                        <span id="char-warning" class="char-warning" style="display: none;">Exceeds Twitter's character limit</span>
+                    </div>
+                </div>
+
+                <div class="modal-options">
+                    <label class="toggle-container">
+                        <input type="checkbox" id="include-url-toggle" checked>
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label">Include release notes URL</span>
+                    </label>
+                    <p class="option-description">Appends the official BigQuery release notes link to the tweet.</p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="mock-tweet-btn" class="btn btn-secondary">
+                    <i data-lucide="bookmark"></i>
+                    <span>Simulate Tweet</span>
+                </button>
+                <button id="post-tweet-btn" class="btn btn-primary">
+                    <i data-lucide="external-link"></i>
+                    <span>Tweet via Web Intent</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Notification Toast -->
+    <div id="toast" class="toast">
+        <i data-lucide="check-circle-2" class="toast-icon"></i>
+        <span id="toast-message">Success message!</span>
+    </div>
+
+    <!-- Script Injection for Lucide Icons initial call -->
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+    </script>
+    <!-- Application Logic -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
