@@ -1,4 +1,4 @@
-Subject: Daily Business Report & Economics Analysis - June 28, 2026
+Subject: [TEST RUN] Daily Business Report & Economics Analysis - June 28, 2026
 X-Unsent: 1
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
@@ -14,17 +14,19 @@ MIME-Version: 1.0
         li { margin-bottom: 8px; }
         .footer { font-size: 11px; color: #666666; margin-top: 30px; border-top: 1px solid #e5e7eb; padding-top: 10px; text-align: center; }
         .meta { font-style: italic; color: #555555; margin-bottom: 15px; }
+        .test-banner { background-color: #fef3c7; border: 1px solid #f59e0b; color: #d97706; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-weight: bold; text-align: center; }
     </style>
 </head>
 <body>
+    <div class="test-banner">⚠️ MANUAL TEST RUN - GENERATED AT 13:10 LOCAL TIME</div>
     <h1>Daily Business & Economics Report</h1>
     <p class="meta">Date: June 28, 2026 | Compiled automatically from Google News</p>
     
-    <h2>1. Anthropic Model "Fable 5" Returning Soon</h2>
-    <p><strong>Headline:</strong> "Scoop: Powerful Anthropic model, Fable 5, on track to return soon - Axios"</p>
+    <h2>1. Global Computer Memory Shortage Affecting Tech Sector</h2>
+    <p><strong>Headline:</strong> "The memory shortage shaking Apple and Microsoft is 'existential crisis' for smaller players - CNBC"</p>
     <ul>
-        <li><strong>Business Model:</strong> AI-as-a-Service (AIaaS) billing per million tokens for developer APIs, combined with flat-rate subscriptions ($20/month) for end users.</li>
-        <li><strong>Key Economics:</strong> Heavy upfront capital expenditures for GPU infrastructure, paired with variable running costs that compress margins relative to typical software models.</li>
+        <li><strong>Business Model:</strong> Capital-intensive design and fabrication of memory modules (DRAM, HBM, NAND) in specialized semiconductor plants (Fabs), sold via bulk contract channels to enterprise buyers.</li>
+        <li><strong>Key Economics:</strong> Extremely high fixed costs to establish fabrication facilities, creating a supply elasticity lag. Spikes in AI server demand have caused prices to skyrocket, pricing out smaller competitors.</li>
     </ul>
 
     <h2>2. Supreme Court Bayer Victory (Roundup Litigation)</h2>
@@ -48,11 +50,11 @@ MIME-Version: 1.0
         <li><strong>Key Economics:</strong> Structural launch cost advantages (up to 60% lower costs) gained from vertically integrated, reusable rocket technology.</li>
     </ul>
 
-    <h2>5. US Key Inflation Gauge Surges to 3-Year High</h2>
-    <p><strong>Headline:</strong> "America In Focus: Key inflation gauge surges to 3-year high, mortgage rate climbs - AP News"</p>
+    <h2>5. Anthropic Cleared to Restore Mythos 5 Access</h2>
+    <p><strong>Headline:</strong> "Anthropic cleared to restore Mythos 5 access to certain US organisations - Euronews"</p>
     <ul>
-        <li><strong>Business Model:</strong> Monetary authority managing credit markets and national money supply to balance inflation and employment.</li>
-        <li><strong>Key Economics:</strong> Raising interest rates raises the borrowing cost across consumer and commercial markets, dampening demand to curb inflation at the risk of a recession.</li>
+        <li><strong>Business Model:</strong> Developer API token usage pricing paired with flat consumer subscription tiers ($20/month).</li>
+        <li><strong>Key Economics:</strong> Massive capital computing budgets required for training models, combined with variable GPU run-costs that compress overall gross margins.</li>
     </ul>
 
     <div class="footer">

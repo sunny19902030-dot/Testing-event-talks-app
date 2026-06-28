@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const includeUrlToggle = document.getElementById('include-url-toggle');
     const mockTweetBtn = document.getElementById('mock-tweet-btn');
     const postTweetBtn = document.getElementById('post-tweet-btn');
+    const whatsappShareBtn = document.getElementById('whatsapp-share-btn');
 
     // Toast
     const toast = document.getElementById('toast');
@@ -244,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ${item.type}
                             </span>
                             <div class="card-actions">
-                                <button class="btn-card-action tweet-single-btn" data-id="${item.id}" title="Tweet this update">
-                                    <i data-lucide="twitter"></i>
+                                <button class="btn-card-action tweet-single-btn" data-id="${item.id}" title="Share this update">
+                                    <i data-lucide="share-2"></i>
                                 </button>
                             </div>
                         </div>
@@ -567,8 +568,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Post via Twitter Web Intent
     postTweetBtn.addEventListener('click', () => {
-        const tweetText = tweetTextarea.value;
-        const encodedText = encodeURIComponent(tweetText);
+        const messageText = tweetTextarea.value;
+        const encodedText = encodeURIComponent(messageText);
         const url = `https://twitter.com/intent/tweet?text=${encodedText}`;
         
         window.open(url, '_blank', 'noopener,noreferrer');
@@ -581,18 +582,34 @@ document.addEventListener('DOMContentLoaded', () => {
         clearSelectionBtn.click();
     });
 
-    // Mock Tweet
+    // Post via WhatsApp Web Intent
+    whatsappShareBtn.addEventListener('click', () => {
+        const messageText = tweetTextarea.value;
+        const encodedText = encodeURIComponent(messageText);
+        const url = `https://api.whatsapp.com/send?text=${encodedText}`;
+        
+        window.open(url, '_blank', 'noopener,noreferrer');
+        
+        // Show success alert
+        showToast("WhatsApp intent opened in a new tab!");
+        
+        // Reset state & selections
+        closeTweetModal();
+        clearSelectionBtn.click();
+    });
+
+    // Mock Share Simulation
     mockTweetBtn.addEventListener('click', () => {
         // Fake sending progress
         mockTweetBtn.disabled = true;
         const origText = mockTweetBtn.innerHTML;
-        mockTweetBtn.innerHTML = `<div class="spinner" style="width:16px;height:16px;border-width:2px;margin:0;"></div> <span>Posting...</span>`;
+        mockTweetBtn.innerHTML = `<div class="spinner" style="width:16px;height:16px;border-width:2px;margin:0;"></div> <span>Sharing...</span>`;
         
         setTimeout(() => {
             mockTweetBtn.disabled = false;
             mockTweetBtn.innerHTML = origText;
             
-            showToast("Tweet successfully simulated & saved!");
+            showToast("Update share successfully simulated!");
             
             closeTweetModal();
             clearSelectionBtn.click();

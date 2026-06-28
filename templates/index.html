@@ -112,7 +112,7 @@
         </footer>
     </div>
 
-    <!-- Floating Tweet Action Bar (slides up when items are selected) -->
+    <!-- Floating Share Action Bar (slides up when items are selected) -->
     <div id="selection-bar" class="selection-bar">
         <div class="selection-bar-content">
             <div class="selection-info">
@@ -123,22 +123,22 @@
                 <button id="clear-selection-btn" class="btn btn-text">
                     <span>Clear Selection</span>
                 </button>
-                <button id="tweet-selected-btn" class="btn btn-success">
-                    <i data-lucide="twitter"></i>
-                    <span>Compose Tweet</span>
+                <button id="tweet-selected-btn" class="btn btn-success" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); border-color: rgba(56, 189, 248, 0.3); color: #040810; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);">
+                    <i data-lucide="share-2"></i>
+                    <span>Share Selected</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Tweet Composer Modal -->
+    <!-- Share Composer Modal -->
     <div id="tweet-modal" class="modal">
         <div class="modal-backdrop"></div>
         <div class="modal-container">
             <div class="modal-header">
                 <div class="modal-title-group">
-                    <i data-lucide="twitter" class="tweet-logo"></i>
-                    <h2>Tweet Composer</h2>
+                    <i data-lucide="share-2" class="tweet-logo"></i>
+                    <h2>Share Updates</h2>
                 </div>
                 <button id="close-modal-btn" class="modal-close-btn" title="Close">
                     <i data-lucide="x"></i>
@@ -155,13 +155,13 @@
                         </div>
                     </div>
                     <div class="tweet-card-body">
-                        <textarea id="tweet-textarea" rows="6" placeholder="What's happening in BigQuery?"></textarea>
+                        <textarea id="tweet-textarea" rows="6" placeholder="Share these updates..."></textarea>
                     </div>
                     <div class="tweet-card-footer">
                         <div class="character-counter">
                             <span id="char-count">0</span><span class="char-limit"> / 280</span>
                         </div>
-                        <span id="char-warning" class="char-warning" style="display: none;">Exceeds Twitter's character limit</span>
+                        <span id="char-warning" class="char-warning" style="display: none;">Exceeds typical character limit</span>
                     </div>
                 </div>
 
@@ -171,18 +171,22 @@
                         <span class="toggle-slider"></span>
                         <span class="toggle-label">Include release notes URL</span>
                     </label>
-                    <p class="option-description">Appends the official BigQuery release notes link to the tweet.</p>
+                    <p class="option-description">Appends the official BigQuery release notes link.</p>
                 </div>
             </div>
 
             <div class="modal-footer">
                 <button id="mock-tweet-btn" class="btn btn-secondary">
                     <i data-lucide="bookmark"></i>
-                    <span>Simulate Tweet</span>
+                    <span>Simulate Share</span>
                 </button>
-                <button id="post-tweet-btn" class="btn btn-primary">
-                    <i data-lucide="external-link"></i>
-                    <span>Tweet via Web Intent</span>
+                <button id="post-tweet-btn" class="btn btn-primary" style="background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%); color: white; box-shadow: 0 4px 12px rgba(29, 161, 242, 0.2);">
+                    <i data-lucide="twitter"></i>
+                    <span>Tweet</span>
+                </button>
+                <button id="whatsapp-share-btn" class="btn btn-success">
+                    <i data-lucide="message-square"></i>
+                    <span>WhatsApp</span>
                 </button>
             </div>
         </div>
